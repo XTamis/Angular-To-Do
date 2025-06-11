@@ -1,6 +1,20 @@
-<main class="main">
-  <div class="content">
-
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand">Angular To Do</a>
+    <div class="d-flex">
+      <input type="text" class="form-control me-1" [(ngModel)]="newTask" placeholder="Add a new task">
+      <button class="btn btn-primary" (click)="addTask()" id="create-button">Create</button>
+    </div>
   </div>
-</main>
-<router-outlet />
+</nav>
+<div class="container-fluid mt-2">
+  <ul class="list-group">
+    <li *ngFor="let task of tasks$ | async; index as i" class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <input class="form-check-input me-2" id="checkbox-{{i}}" type="checkbox" [checked]="task.completed" (change)="toggleComplete(task)" />
+        <label class="form-check-label" for="checkbox-{{i}}" [class.completed]="task.completed">{{ task.title }}</label>
+      </div>
+      <button class="btn" (click)="deleteTask(task.id!)"><i class="bi bi-trash"></i></button>
+    </li>
+  </ul>
+</div>
